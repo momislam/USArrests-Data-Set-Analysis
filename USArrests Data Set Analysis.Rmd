@@ -1,0 +1,50 @@
+---
+title: "USArrests Data Set Analysis"
+author: "Mominul Islam"
+date: "1/18/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Scenario 
+
+This analysis is going to determine whether a state in the USA is dangerous regarding rape, murder and assault,as well as give an warning message if the state name of the user's input is invalid. The USArrests data set is already in **RStudio** built-in system, therefore, there is no need to import data from external sources.
+
+
+### Investigating the data structure and few rows from the dataset.
+
+```{r cars}
+str(USArrests)
+head(USArrests)
+
+```
+### Creating a function to determine wheather a state is dangerous regarding rape, murder and assault,as well as settint the warning message if the state name of the user's input is invald.
+
+```{r}
+dangerious_state<- function(state_name){
+  if (!state_name %in% row.names(USArrests)){ 
+    print("Invalid State Name") #Return invalid state name If the state name not in data set.
+  }else if (USArrests[state_name, "Murder"] > mean(USArrests[, "Murder"]) &
+           USArrests[state_name, "Rape"] > mean(USArrests[, "Rape"]) &
+            USArrests[state_name, "Assault"] > mean(USArrests[, "Assault"])){
+              print("Dangerious State")
+            }else{
+              print("Safe State")
+            }
+}
+dangerious_state("California") ## Calling the function.
+dangerious_state("Arizona")
+dangerious_state("Arkansas")
+dangerious_state("Helsinki")
+dangerious_state("Berlin")
+
+
+```
+
+
+
+
+
